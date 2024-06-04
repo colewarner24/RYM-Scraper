@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import json
 
 PAGE = 0
 RYM_BASE_URl = "https://rateyourmusic.com/charts/top/album/all-time"
@@ -16,12 +17,12 @@ CLASS_TOTAL_RATINGS = "page_charts_section_charts_item_details_ratings"
 CLASS_TOTAL_REVIEWS = "page_charts_section_charts_item_details_reviews"
 CLASS_GENRE_DISCRIPTORS = "page_charts_section_charts_item_genre_descriptors"
 CLASS_MEDIA_LINKS = "page_charts_section_charts_item_media_links"
+CLASS_SPOTIFY_LINK = "ui_media_link_btn ui_media_link_btn_youtube"
 ALBUM_PAGE_LEN = 40
 PAGE_LEN = 125
 
 class Album:
     def __init__(self, album_web_element) -> None:
-        self.id = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_ALBUM_SHORTCUT}']").text
         self.artist = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_ARTIST}']").text
         self.title = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_TITLE}']").text
         self.date = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_DATE}']").text
@@ -31,9 +32,13 @@ class Album:
         self.total_ratings = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_TOTAL_RATINGS}']").text
         self.total_reviews = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_TOTAL_REVIEWS}']").text
         self.genre_descriptors = album_web_element.find_element(By.XPATH, f".//*[@class='{CLASS_GENRE_DISCRIPTORS}']").text
+        #media_link_button_container_charts_
+        self.spotify_link = json.loads(album_web_element.find_element(By.XPATH, f".//*[starts-with(@id, \"media_link_button_container_charts_\")]").get_attribute("data-links"))
+        print(self.spotify_link['spotify'])
+        #self.spotify_link = links_el.find_element(By.XPATH, f".//*[@class='{CLASS_SPOTIFY_LINK}']").get_attribute("href")
     
     def __str__(self) -> str:
-        return f"Artist: {self.artist}\nTitle: {self.title}\nDate: {self.date}\nGenres: {self.genres_primary}, {self.genres_secondary}\nRating: {self.rating}\nTotal ratings: {self.total_ratings}\nTotal reviews: {self.total_reviews}\nGenre descriptors: {self.genre_descriptors}"
+        return f"Artist: {self.artist}\nTitle: {self.title}\nDate: {self.date}\nGenres: {self.genres_primary}, {self.genres_secondary}\nRating: {self.rating}\nTotal ratings: {self.total_ratings}\nTotal reviews: {self.total_reviews}\nGenre descriptors: {self.genre_descriptors}\nSpotify link: {self.spotify_link}"
 
 def main():
     
