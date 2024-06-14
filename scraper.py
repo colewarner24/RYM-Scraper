@@ -4,13 +4,14 @@ from selenium.webdriver.common.by import By # type: ignore
 import json
 import time
 
+
 PAGE = 0
 RYM_BASE_URl = "https://rateyourmusic.com/charts/top/album/all-time"
 RYM_CLASS_WRAPPER = "page_section_charts_item_wrapper  anchor"
 RYM_CLASS_WRAPPER_ALBUM = "page_charts_section_charts"
 CLASS_ALBUM_SHORTCUT = "album shortcut"
-CLASS_ARTIST = "page_charts_section_charts_item_title"
-CLASS_TITLE = "page_charts_section_charts_item_credited_links_primary"
+CLASS_TITLE = "page_charts_section_charts_item_title"
+CLASS_ARTIST = "page_charts_section_charts_item_credited_links_primary"
 CLASS_DATE = "page_charts_section_charts_item_date"
 CLASS_GENRES_PRIMARY = "page_charts_section_charts_item_genres_primary"
 CLASS_GENRES_SECONDARY = "page_charts_section_charts_item_genres_secondary"
